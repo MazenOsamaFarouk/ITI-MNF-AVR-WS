@@ -13,10 +13,22 @@
 #include "TIMERS_private.h"
 #include "TIMERS_config.h"
 
+static void (*TIMER0_OVF_Callback)(void) ;
+
+
 
 void TIMERS_vInit(void)
 {
-
+	/* 1- Select wave generation mode */
+	CLR_BIT(TCCR0, WGM00);
+	CLR_BIT(TCCR0, WGM01);
+	/* 2- Output compare mode  */
+	CLR_BIT(TCCR0, COM00);
+	CLR_BIT(TCCR0, COM01);
+	/* 3- Preload  */
+	TCNT0 = TIMER0_PRELOAD ;
+	/* 4- Interrupt EN/DIS   */
+	SET_BIT(TIMSK, TOV0);
 }
 
 void TIMERS_vSetBusyWait_synch(/* TimerId  ,*/ u32 A_u32Ticks)
@@ -27,16 +39,37 @@ void TIMERS_vSetBusyWait_synch(/* TimerId  ,*/ u32 A_u32Ticks)
 
 void TIMERS_vStartTimer(/* TimerId  ,*/ void)
 {
-
+	TCCR0 = (TCCR0 & ~(0b111)) | (TIMER0_PRESCALER) ;
 }
 
 void TIMERS_vStopTimer(/* TimerId  ,*/ void)
 {
-
+	TCCR0 = (TCCR0 & ~(0b111)) | (PS_NOCLK) ;
 }
 
 void TIMERS_vSetCallback(/* TimerId  ,*/ void (*fptr)(void))
 {
-
+	TIMER0_OVF_Callback = fptr ;
 }
+
+void __vector_11(void) __attribute__((signal));
+void __vector_11(void)
+{
+	if(TIMER0_OVF_Callback != NULL)
+	{
+		TIMER0_OVF_Callback();
+	}
+}
+
+void TIMERS_vSetPreloadValue(/* TimerId  ,*/ u16 A_u16Preload)
+{
+	TCNT0 = A_u16Preload;
+}
+
+
+
+
+
+
+
 
