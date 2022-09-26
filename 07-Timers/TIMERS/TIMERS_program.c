@@ -20,16 +20,20 @@ static void (*TIMER0_CTC_Callback)(void) ;
 void TIMERS_vInit(void)
 {
 	/* 1- Select wave generation mode */
+	/* PWM: select Fast WPM mode */
 	CLR_BIT(TCCR0, WGM00);
 	SET_BIT(TCCR0, WGM01);
 	/* 2- Output compare mode  */
+	/* PWM: Non-Inverting Mode  */
+
 	CLR_BIT(TCCR0, COM00);
 	CLR_BIT(TCCR0, COM01);
 	/* 3- Preload  */
 	TCNT0 = TIMER0_PRELOAD ;
 	/* 4- Interrupt EN/DIS   */
 //	SET_BIT(TIMSK, TOV0);
-	SET_BIT(TIMSK, OCIE0);
+//	SET_BIT(TIMSK, OCIE0);
+	/* PWM: Disable Interrupts */
 }
 
 void TIMERS_vSetBusyWait_synch(/* TimerId  ,*/ u32 A_u32Ticks)
