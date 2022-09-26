@@ -9,7 +9,7 @@
 #define TIMERS_TIMERS_CONFIG_H_
 
 
-#define TIMER0_PRELOAD      224
+#define TIMER0_PRELOAD      0
 #define TIMER0_PRESCALER    PS_8
 
 #endif /* TIMERS_TIMERS_CONFIG_H_ */

@@ -13,7 +13,7 @@
 #define COM00       4
 #define COM01		5
 #define TOV0        0
-
+#define OCIE0       1
 
 #define PS_NOCLK	0b000
 #define PS_1		0b001

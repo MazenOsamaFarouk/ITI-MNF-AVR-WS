@@ -16,6 +16,7 @@ void TIMERS_vStopTimer(/* TimerId  ,*/ void);
 void TIMERS_vSetCallback(/* TimerId  ,*/ void (*fptr)(void));
 
 void TIMERS_vSetPreloadValue(/* TimerId  ,*/ u16 A_u16Preload);
+void TIMERS_vSetCompareMatchValue(/* TimerId  ,*/ u16 A_u16OcrVal    );
 
 
 

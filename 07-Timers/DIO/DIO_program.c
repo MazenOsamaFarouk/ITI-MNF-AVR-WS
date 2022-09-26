@@ -115,7 +115,12 @@ u8   DIO_u8ReadPinValue(u8 A_u8PortId,u8 A_u8PinNo)
 
 void DIO_vTogglePin(u8 A_u8PortId,u8 A_u8PinNo)
 {
-
+	switch(A_u8PortId)
+	{
+	case DIO_PORTA:
+		TOG_BIT(PORTA, A_u8PinNo);
+		break;
+	}
 
 }
 

@@ -11,20 +11,31 @@
 #include "TIMERS/TIMERS_interface.h"
 #include "GIE/GIE_interface.h"
 
+#if 0
 void LedToggle(void)
 {
 	static u32 counter = 0;
 	counter++;
 
-	if(counter == 1954)
+	if(counter == 1954*2)
 	{
 		counter=0;
 		TIMERS_vSetPreloadValue(224);
 		DIO_vTogglePin(DIO_PORTA, DIO_PIN0);
 	}
 }
+#endif
 
 
+void LedToggle(void)
+{
+	static u32 counter =0 ;
+	counter++;
+	if(counter == 4000)
+	{
+		DIO_vTogglePin(DIO_PORTA, DIO_PIN0);
+	}
+}
 int main(void)
 {
 	DIO_vWritePinDirection(DIO_PORTA, DIO_PIN0, DIO_OUTPUT);
@@ -34,6 +45,8 @@ int main(void)
 
 	GIE_vEnable();
 
+
+	TIMERS_vSetCompareMatchValue(250);
 	TIMERS_vStartTimer();
 
 
