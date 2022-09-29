@@ -82,9 +82,9 @@ int main(void)
 		}
 
 		// fade out
-		for(u16 i=32; i<64; i++)
+		for(u16 i=64; i>=32; i--)
 		{
-			TIMERS_vSetCompareMatchValue(64-i);
+			TIMERS_vSetCompareMatchValue(i);
 			_delay_ms(10);
 		}
 
